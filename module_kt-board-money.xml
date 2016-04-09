@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_kt-board-money" default="compile.module.kt-board-money">
+  <dirname property="module.kt-board-money.basedir" file="${ant.file.module_kt-board-money}"/>
+  
+  <property name="module.jdk.home.kt-board-money" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.kt-board-money" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.kt-board-money" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.kt-board-money" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="kt-board-money.output.dir" value="${module.kt-board-money.basedir}/out/production/kt-board-money"/>
+  <property name="kt-board-money.testoutput.dir" value="${module.kt-board-money.basedir}/out/test/kt-board-money"/>
+  
+  <path id="kt-board-money.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="kt-board-money.module.production.classpath">
+    <path refid="${module.jdk.classpath.kt-board-money}"/>
+    <path refid="library.kotlinjavaruntime.classpath"/>
+  </path>
+  
+  <path id="kt-board-money.runtime.production.module.classpath">
+    <pathelement location="${kt-board-money.output.dir}"/>
+    <path refid="library.kotlinjavaruntime.classpath"/>
+  </path>
+  
+  <path id="kt-board-money.module.classpath">
+    <path refid="${module.jdk.classpath.kt-board-money}"/>
+    <pathelement location="${kt-board-money.output.dir}"/>
+    <path refid="library.kotlinjavaruntime.classpath"/>
+  </path>
+  
+  <path id="kt-board-money.runtime.module.classpath">
+    <pathelement location="${kt-board-money.testoutput.dir}"/>
+    <pathelement location="${kt-board-money.output.dir}"/>
+    <path refid="library.kotlinjavaruntime.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.kt-board-money">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.kt-board-money">
+    <patternset refid="excluded.from.module.kt-board-money"/>
+  </patternset>
+  
+  <path id="kt-board-money.module.sourcepath">
+    <dirset dir="${module.kt-board-money.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.kt-board-money" depends="compile.module.kt-board-money.production,compile.module.kt-board-money.tests" description="Compile module kt-board-money"/>
+  
+  <target name="compile.module.kt-board-money.production" depends="register.custom.compilers" description="Compile module kt-board-money; production classes">
+    <mkdir dir="${kt-board-money.output.dir}"/>
+    <javac2 destdir="${kt-board-money.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.kt-board-money}/javac">
+      <compilerarg line="${compiler.args.kt-board-money}"/>
+      <bootclasspath refid="kt-board-money.module.bootclasspath"/>
+      <classpath refid="kt-board-money.module.production.classpath"/>
+      <src refid="kt-board-money.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.kt-board-money"/>
+    </javac2>
+    
+    <copy todir="${kt-board-money.output.dir}">
+      <fileset dir="${module.kt-board-money.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.kt-board-money.tests" depends="register.custom.compilers,compile.module.kt-board-money.production" description="compile module kt-board-money; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.kt-board-money" description="cleanup module">
+    <delete dir="${kt-board-money.output.dir}"/>
+    <delete dir="${kt-board-money.testoutput.dir}"/>
+  </target>
+</project>
