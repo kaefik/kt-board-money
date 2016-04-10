@@ -4,6 +4,7 @@
  */
 import java.net.URL
 import java.io.File
+import java.nio.charset.Charset
 import java.util.*
 
 
@@ -25,7 +26,7 @@ fun MutableList<Kurs>.parsemetalSbrf() {
     metal.valuta = "Au"
     metal.print()
 
-    var htmlpage:String = linkbank.readText()
+    var htmlpage:String = linkbank.readText(Charset.defaultCharset())
 
     var ff:File
     ff= File(namefile)
