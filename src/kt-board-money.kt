@@ -2,6 +2,10 @@
  * kt-board-money - доска металлов и валют из банков
  * Created by oilnur on 09.04.16.
  */
+import java.net.URL
+import java.io.File
+import java.util.*
+
 
 // распечатка таблицы металлов на экран
 fun MutableList<Kurs>.printboard() {
@@ -11,8 +15,28 @@ fun MutableList<Kurs>.printboard() {
     }
 }
 
+// парсинг сбербанка котировки металлов
+fun MutableList<Kurs>.parsemetalSbrf() {
+    var namefile ="htmlpage.html"
+    var metal: Kurs
+    val linkbank = URL("http://data.sberbank.ru/tatarstan/ru/quotes/metal/?base=beta")
+    metal = Kurs()
+    metal.namebank = "SBRF"
+    metal.valuta = "Au"
+    metal.print()
+
+    var htmlpage:String = linkbank.readText()
+
+    var ff:File
+    ff= File(namefile)
+    ff.writeText(htmlpage)
+
+
+}
+
+
 fun main(args: Array<String>) {
-    println("Starting kt-board-money\n")
+    println("Starting kt-board-money....\n")
 
     var metalkurs: Kurs
     var boardkurs: MutableList<Kurs>  // доска валют
@@ -22,7 +46,8 @@ fun main(args: Array<String>) {
     //    metalkurs.print()
     boardkurs.add(metalkurs)
     boardkurs.printboard()
+    boardkurs.parsemetalSbrf()
 
     //    println("\nСписок металлов\n $arraykurs")
-    println("Stopping kt-board-money")
+    println("\nStopping kt-board-money....")
 }
