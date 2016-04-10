@@ -18,22 +18,34 @@ fun MutableList<Kurs>.printboard() {
 
 // парсинг сбербанка котировки металлов
 fun MutableList<Kurs>.parsemetalSbrf() {
-    var namefile ="htmlpage.html"
+    //    var namefile ="htmlpage.html"
     var metal: Kurs
     val linkbank = URL("http://data.sberbank.ru/tatarstan/ru/quotes/metal/?base=beta")
-    var CHARSETSBRF=Charset.forName("windows-1251")
-    var ff:File
+    var CHARSETSBRF = Charset.forName("windows-1251")
+    //    var ff:File
     metal = Kurs()
     metal.namebank = "SBRF"
     metal.valuta = "Au"
-//    metal.print()
+    //    metal.print()
 
-    var htmlpage:String = linkbank.readText(CHARSETSBRF)
+    val htmlpage: String = linkbank.readText(CHARSETSBRF)
 
-//    println(htmlpage)
-//    //схранение строки htmlpage в файле с именем namefile
-//    ff= File(namefile)
-//    ff.writeText(htmlpage,CHARSETSBRF)
+    //    <table class="table3_eggs4" width="100%" style="margin:0;">
+    //    (\<(/?[^\>]+)\>)
+    var tablepattern = "<table class=\"table3_eggs4\"(.*\\W+.*)*</table"
+    var rg: Regex = Regex(pattern =tablepattern)//"(\\<(/?[^\\>]+)\\>)")  //
+    var seqregxp = rg.findAll(htmlpage)
+
+
+    println(seqregxp.count())
+    println(seqregxp.forEach { println(it.value) })
+
+
+
+    //    println(htmlpage)
+    //    //схранение строки htmlpage в файле с именем namefile
+    //    ff= File(namefile)
+    //    ff.writeText(htmlpage,CHARSETSBRF)
 }
 
 
