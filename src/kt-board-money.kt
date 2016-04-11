@@ -5,7 +5,7 @@
 import java.net.URL
 import java.io.File
 import java.nio.charset.Charset
-import java.util.*
+import org.jsoup.*
 
 
 // распечатка таблицы металлов на экран
@@ -18,49 +18,64 @@ fun MutableList<Kurs>.printboard() {
 
 // парсинг сбербанка котировки металлов
 fun MutableList<Kurs>.parsemetalSbrf() {
-    //    var namefile ="htmlpage.html"
     var metal: Kurs
     val linkbank = URL("http://data.sberbank.ru/tatarstan/ru/quotes/metal/?base=beta")
     var CHARSETSBRF = Charset.forName("windows-1251")
-    //    var ff:File
-    metal = Kurs()
-    metal.namebank = "SBRF"
-    metal.valuta = "Au"
-    //    metal.print()
-
     val htmlpage: String = linkbank.readText(CHARSETSBRF)
+    // парсинг тэгов таблицы
+    val doc = Jsoup.parse(htmlpage)
+    val tables = doc.getElementsByTag("table")
+    var valmetal: String = ""
+    for (i in tables) {
+        if (i.attr("class") == "table3_eggs4") {
+            valmetal = i.text()
+            break
+        }
+    }
 
-    //    <table class="table3_eggs4" width="100%" style="margin:0;">
-    //    (\<(/?[^\>]+)\>)
-    var tablepattern = "<table class=\"table3_eggs4\"(.*\\W+.*)*</table"
-    var rg: Regex = Regex(pattern =tablepattern)//"(\\<(/?[^\\>]+)\\>)")  //
-    var seqregxp = rg.findAll(htmlpage)
-
-
-    println(seqregxp.count())
-    println(seqregxp.forEach { println(it.value) })
-
-
-
-    //    println(htmlpage)
-    //    //схранение строки htmlpage в файле с именем namefile
-    //    ff= File(namefile)
-    //    ff.writeText(htmlpage,CHARSETSBRF)
+    val arraymetal = valmetal.split(" ")
+    metal=Kurs("SBRF","Au")
+    metal.pokupka = arraymetal[2].replace(",", ".").toFloat()
+    metal.prodaja = arraymetal[3].replace(",", ".").toFloat()
+    this.add(metal)
+    metal=Kurs("SBRF","Ag")
+    metal.pokupka = arraymetal[4].replace(",", ".").toFloat()
+    metal.prodaja = arraymetal[5].replace(",", ".").toFloat()
+    this.add(metal)
+    metal=Kurs("SBRF","Pt")
+    metal.pokupka = arraymetal[6].replace(",", ".").toFloat()
+    metal.prodaja = arraymetal[7].replace(",", ".").toFloat()
+    this.add(metal)
+    metal=Kurs("SBRF","Pd")
+    metal.pokupka = arraymetal[8].replace(",", ".").toFloat()
+    metal.prodaja = arraymetal[9].replace(",", ".").toFloat()
+    this.add(metal)
 }
 
+//сохранение строки htmlpage в файле с именем namefile
+fun SaveFile(namefile: String,htmlpage:String) {
+    val CHARSETSBRF = Charset.forName("windows-1251")
+    var ff:File = File(namefile)
+    ff.writeText(htmlpage, CHARSETSBRF)
+}
 
 fun main(args: Array<String>) {
     println("Starting kt-board-money....\n")
 
-    var metalkurs: Kurs
+//    var metalkurs: Kurs
     var boardkurs: MutableList<Kurs>  // доска валют
     boardkurs = mutableListOf()
-    metalkurs = Kurs()
+//    metalkurs = Kurs()
 
     //    metalkurs.print()
-    boardkurs.add(metalkurs)
-    boardkurs.printboard()
+//    boardkurs.add(metalkurs)
     boardkurs.parsemetalSbrf()
+    boardkurs.printboard()
+//    println(boardkurs.count())
+//    println(boardkurs.first().valuta)
+//    println(boardkurs.last().valuta)
+
+
 
     //    println("\nСписок металлов\n $arraykurs")
     println("\nStopping kt-board-money....")
