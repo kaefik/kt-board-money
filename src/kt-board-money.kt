@@ -61,22 +61,10 @@ fun SaveFile(namefile: String,htmlpage:String) {
 
 fun main(args: Array<String>) {
     println("Starting kt-board-money....\n")
-
-//    var metalkurs: Kurs
     var boardkurs: MutableList<Kurs>  // доска валют
     boardkurs = mutableListOf()
-//    metalkurs = Kurs()
-
-    //    metalkurs.print()
-//    boardkurs.add(metalkurs)
     boardkurs.parsemetalSbrf()
     boardkurs.printboard()
-//    println(boardkurs.count())
-//    println(boardkurs.first().valuta)
-//    println(boardkurs.last().valuta)
-
-
-
     //    println("\nСписок металлов\n $arraykurs")
     println("\nStopping kt-board-money....")
 }
