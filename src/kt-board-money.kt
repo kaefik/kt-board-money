@@ -19,6 +19,8 @@ fun main(args: Array<String>) {
     boardkurs = mutableListOf()
     boardkurs.parsemetalSbrf()
     boardkurs.parsemetalTfb()
+    boardkurs.parsemetalAkbars()
+    boardkurs.parsemetalIntechbank()
     boardkurs.printboard()
     //    println("\nСписок металлов\n $arraykurs")
     println("\nStopping kt-board-money....")
