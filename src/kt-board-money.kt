@@ -23,6 +23,8 @@ fun main(args: Array<String>) {
     boardkurs.parsemetalIntechbank()
     boardkurs.parsemetalVtb24()
     boardkurs.printboard()
+
+    SaveFile("board-metal.html",genHtml())
     //    println("\nСписок металлов\n $arraykurs")
     println("\nStopping kt-board-money....")
 }

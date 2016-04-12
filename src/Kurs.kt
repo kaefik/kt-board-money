@@ -27,9 +27,9 @@ fun MutableList<Kurs>.printboard() {
     }
 }
 
-// парсинг татфондбанка котировки металлов
+// парсинг  втб24 котировки металлов
 fun MutableList<Kurs>.parsemetalVtb24() {
-    var metal: Kurs
+//    var metal: Kurs
     val linkbank = URL("http://www.vtb24.ru/personal/savings/metals/Pages/default.aspx")
     var CHARSETSBRF = Charset.forName("windows-1251")
     val htmlpage: String = linkbank.readText(CHARSETSBRF)
@@ -80,7 +80,7 @@ fun MutableList<Kurs>.parsemetalIntechbank() {
         }
     }
 
-    println(valmetal)
+//    println(valmetal)
 
     val arraymetal = valmetal.split(" ")
     metal = Kurs("INTECHBANK", "Au")
