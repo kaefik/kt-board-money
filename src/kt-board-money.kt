@@ -18,6 +18,7 @@ fun main(args: Array<String>) {
     var boardkurs: MutableList<Kurs>  // доска валют
     boardkurs = mutableListOf()
     boardkurs.parsemetalSbrf()
+    boardkurs.parsemetalTfb()
     boardkurs.printboard()
     //    println("\nСписок металлов\n $arraykurs")
     println("\nStopping kt-board-money....")
