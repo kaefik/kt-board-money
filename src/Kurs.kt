@@ -27,6 +27,43 @@ fun MutableList<Kurs>.printboard() {
     }
 }
 
+// парсинг татфондбанка котировки металлов
+fun MutableList<Kurs>.parsemetalVtb24() {
+    var metal: Kurs
+    val linkbank = URL("http://www.vtb24.ru/personal/savings/metals/Pages/default.aspx")
+    var CHARSETSBRF = Charset.forName("windows-1251")
+    val htmlpage: String = linkbank.readText(CHARSETSBRF)
+    // парсинг тэгов таблицы
+    val doc = Jsoup.parse(htmlpage)
+    val tables = doc.getElementsByTag("div")
+    var valmetal: String = ""
+    for (i in tables) {
+        if (i.attr("id") == "kursi-table") {
+            valmetal = i.text()
+            break
+        }
+    }
+
+//    val arraymetal = valmetal.split(" ")
+//    metal = Kurs("TFB", "Au")
+//    metal.pokupka = arraymetal[10].replace(",", ".").toFloat()
+//    metal.prodaja = arraymetal[11].replace(",", ".").toFloat()
+//    this.add(metal)
+//    metal = Kurs("TFB", "Ag")
+//    metal.pokupka = arraymetal[13].replace(",", ".").toFloat()
+//    metal.prodaja = arraymetal[14].replace(",", ".").toFloat()
+//    this.add(metal)
+//    metal = Kurs("TFB", "Pt")
+//    metal.pokupka = arraymetal[16].replace(",", ".").toFloat()
+//    metal.prodaja = arraymetal[17].replace(",", ".").toFloat()
+//    this.add(metal)
+//    metal = Kurs("TFB", "Pd")
+//    metal.pokupka = arraymetal[19].replace(",", ".").toFloat()
+//    metal.prodaja = arraymetal[20].replace(",", ".").toFloat()
+//    this.add(metal)
+}
+
+
 // парсинг intechbank котировки металлов
 fun MutableList<Kurs>.parsemetalIntechbank() {
     var metal: Kurs
@@ -51,8 +88,8 @@ fun MutableList<Kurs>.parsemetalIntechbank() {
     metal.prodaja = arraymetal[8].replace(",", ".").toFloat()
     this.add(metal)
     metal = Kurs("INTECHBANK", "Ag")
-    metal.pokupka = arraymetal[10].replace(",", ".").toFloat()
-    metal.prodaja = arraymetal[11].replace(",", ".").toFloat()
+//    metal.pokupka = arraymetal[10].replace(",", ".").toFloat()
+//    metal.prodaja = arraymetal[11].replace(",", ".").toFloat()
     this.add(metal)
 }
 

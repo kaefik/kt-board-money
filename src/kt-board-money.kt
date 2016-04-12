@@ -21,7 +21,9 @@ fun main(args: Array<String>) {
     boardkurs.parsemetalTfb()
     boardkurs.parsemetalAkbars()
     boardkurs.parsemetalIntechbank()
+    boardkurs.parsemetalVtb24()
     boardkurs.printboard()
     //    println("\nСписок металлов\n $arraykurs")
     println("\nStopping kt-board-money....")
 }
+
