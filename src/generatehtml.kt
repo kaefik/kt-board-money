@@ -1,5 +1,11 @@
-fun genHtml(str:String=""): String {
-    return HtmlpageBegins()+str+HtmlpageEnds()
+fun MutableList<Kurs>.genHtml(): String {
+    var ss: String = "<TABLE align=\"center\" border=\"1\">"
+    ss += "<TR><TD colspan='1' align='center'><B>BANK</B></TD><TD colspan='1' align='center'><B>VALUTA</B></TD><TD colspan='1' align='center'><B>POKUPKA</B></TD><TD colspan='1' align='center'><B>PRODAJA</B></TD></TR>"
+    for (n in this) {
+        ss += "<TR> <TD> <A href =' #  '>  ${n.namebank} </a> </TD> <TD align='center' > ${n.valuta} </TD> <TD align='center'> ${n.pokupka} </TD>  <TD align='center'> ${n.prodaja}  </TD> </TR> "
+    }
+    ss += "</TABLE><BR>"
+    return HtmlpageBegins() + ss + HtmlpageEnds()
 
 }
 
@@ -10,22 +16,22 @@ fun tablecell(str: String): String {
 }
 
 //-- генерация ссылки в html
-fun Link(str: String, url:String): String {
+fun Link(str: String, url: String): String {
     return "<a href=$url > $str </a> <br>\n"
 }
 
 //-- генерация строки таблицы в html
-fun gentablestroka(str: Array<String>):String {
-    var res0:String=""
-    for (i in str) res0+=tablecell(i)
+fun gentablestroka(str: Array<String>): String {
+    var res0: String = ""
+    for (i in str) res0 += tablecell(i)
     return "<TR> \n $res0 </TR>\n"
 }
 
 // генерация html главной страницы Начало
-fun HtmlpageBegins():String {
-    val zagol = "ДОСКА ВАЛЮТ и МЕТАЛЛОВ"
-    val stime = "<br> Выгружено:  <вывести текущее время и дату>  <br>"    // time.Now().String() + "<br>"
-    val begstr = "<html>\n <head>\n <meta charset='utf-8'>\n <title> $zagol </title>\n </head>\n <body>\n <h1 align=\"center\"><a name=\"MainPage\"> ДОСКА ВАЛЮТ и МЕТАЛЛОВ </a></h1> $stime"
+fun HtmlpageBegins(): String {
+    val zagol = "DOSKA METALLOV AND VALUT" //"ДОСКА ВАЛЮТ и МЕТАЛЛОВ"
+    val stime = "<br> Vigruzeno:    <br>"    // time.Now().String() + "<br>"" //"<br> Выгружено:  <вывести текущее время и дату>  <br>"    // time.Now().String() + "<br>"
+    val begstr = "<html>\n <head>\n <meta charset='utf-8'>\n <title> $zagol </title>\n </head>\n <body>\n <h1 align=\"center\"><a name=\"MainPage\"> DOSKA METALLOV AND VALUT </a></h1> $stime" //"<html>\n <head>\n <meta charset='utf-8'>\n <title> $zagol </title>\n </head>\n <body>\n <h1 align=\"center\"><a name=\"MainPage\"> ДОСКА ВАЛЮТ и МЕТАЛЛОВ </a></h1> $stime"
     return "$begstr <br>"
 }
 
@@ -36,7 +42,7 @@ fun HtmlpageEnds(): String {
 }
 
 // шаблон оформления таблицы
-fun HtmlTableValuta(ss:String): String {
+fun HtmlTableValuta(ss: String): String {
     val bodystr = "<h3 align=\"center\"></h3><br> <TABLE align=\"center\" border=\"1\"><TR><TD>БАНК</TD><TD>ВАЛЮТА</TD><TD>ПОКУПКА</TD><TD>ПРОДАЖА</TD></TR>"
     return "$bodystr  $ss </TABLE>"
 }
