@@ -7,11 +7,13 @@ import java.io.File
 import java.nio.charset.Charset
 
 //сохранение строки htmlpage в файле с именем namefile
-fun SaveFile(namefile: String,htmlpage:String) {
+fun SaveFile(namefile: String, htmlpage: String) {
     val CHARSETSBRF = Charset.forName("windows-1251")
-    var ff:File = File(namefile)
+    var ff: File = File(namefile)
     ff.writeText(htmlpage, CHARSETSBRF)
 }
+
+//fun fsort(Kurs)
 
 fun main(args: Array<String>) {
     println("Starting kt-board-money....\n")
@@ -22,10 +24,9 @@ fun main(args: Array<String>) {
     boardkurs.parsemetalAkbars()
     boardkurs.parsemetalIntechbank()
     boardkurs.parsemetalVtb24()
-//    boardkurs.sort
-    
-    SaveFile("board-metal.html",boardkurs.genHtml())
-    //    println("\nСписок металлов\n $arraykurs")
+    boardkurs = (boardkurs.sortedBy { it.valuta }).toMutableList()
+
+    SaveFile("board-metal.html", boardkurs.genHtml())
     println("\nStopping kt-board-money....")
 }
 
