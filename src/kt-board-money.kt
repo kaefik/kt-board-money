@@ -5,6 +5,8 @@
 
 import java.io.File
 import java.nio.charset.Charset
+import java.time.LocalDateTime
+import java.util.*
 
 //сохранение строки htmlpage в файле с именем namefile
 fun SaveFile(namefile: String, htmlpage: String) {
@@ -16,6 +18,14 @@ fun SaveFile(namefile: String, htmlpage: String) {
 //fun fsort(Kurs)
 
 fun main(args: Array<String>) {
+    var todir: String = ""
+
+    println("len args= ${args.size}")
+    if (args.size >= 1) {
+        todir = args[0]
+    }
+    println("todir= $todir")
+
     println("Starting kt-board-money....\n")
     var boardkurs: MutableList<Kurs>  // доска валют
     boardkurs = mutableListOf()
@@ -26,7 +36,7 @@ fun main(args: Array<String>) {
     boardkurs.parsemetalVtb24()
     boardkurs = (boardkurs.sortedBy { it.valuta }).toMutableList()
 
-    SaveFile("board-metal.html", boardkurs.genHtml())
+    SaveFile(todir+"board-metal.html", boardkurs.genHtml())
     println("\nStopping kt-board-money....")
 }
 

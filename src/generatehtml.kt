@@ -1,3 +1,5 @@
+import java.time.LocalDateTime
+
 fun MutableList<Kurs>.genHtml(): String {
     var ss: String = "<TABLE align=\"center\" border=\"1\">"
     ss += "<TR><TD colspan='1' align='center'><B>BANK</B></TD><TD colspan='1' align='center'><B>VALUTA</B></TD><TD colspan='1' align='center'><B>POKUPKA</B></TD><TD colspan='1' align='center'><B>PRODAJA</B></TD></TR>"
@@ -30,7 +32,7 @@ fun gentablestroka(str: Array<String>): String {
 // генерация html главной страницы Начало
 fun HtmlpageBegins(): String {
     val zagol = "DOSKA METALLOV AND VALUT" //"ДОСКА ВАЛЮТ и МЕТАЛЛОВ"
-    val stime = "<br> Vigruzeno:    <br>"    // time.Now().String() + "<br>"" //"<br> Выгружено:  <вывести текущее время и дату>  <br>"    // time.Now().String() + "<br>"
+    val stime = "<br> Vigruzeno:  ${LocalDateTime.now()}  <br>"    // time.Now().String() + "<br>"" //"<br> Выгружено:  <вывести текущее время и дату>  <br>"    // time.Now().String() + "<br>"
     val begstr = "<html>\n <head>\n <meta charset='utf-8'>\n <title> $zagol </title>\n </head>\n <body>\n <h1 align=\"center\"><a name=\"MainPage\"> DOSKA METALLOV AND VALUT </a></h1> $stime" //"<html>\n <head>\n <meta charset='utf-8'>\n <title> $zagol </title>\n </head>\n <body>\n <h1 align=\"center\"><a name=\"MainPage\"> ДОСКА ВАЛЮТ и МЕТАЛЛОВ </a></h1> $stime"
     return "$begstr <br>"
 }
